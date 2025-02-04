@@ -1,7 +1,5 @@
 pipeline {
-     agent {
-       label 'test'
-       }
+     agent any
      tools {
         maven 'maven3' 
         }
@@ -30,18 +28,7 @@ pipeline {
             }
             
         }
-        stage("Deploy on Prod"){
-             input {
-                message "Should we continue?"
-                ok "Yes we Should"
-            }
-            
-            steps{
-                // deploy on container -> plugin
-                deploy adapters: [tomcat9(credentialsId: 'tomcat9', path: '', url: 'http://13.59.165.158/:8080')], contextPath: '/besantprod', war: '**/*.war'
-
-            }
-        }
+       
     }
     post{
         always{
